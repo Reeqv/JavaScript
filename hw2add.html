@@ -1,0 +1,51 @@
+<script>
+    //Задание 6. дополнение
+    function getRandomNumber(min, max) {
+        return parseInt(Math.random() * (max - min) + min);
+    }
+    var a = getRandomNumber(-5, 5),
+        b = getRandomNumber(-5, 5);
+
+    alert("Сгенерированны значения a = " + a + ", b = " + b + ".");
+
+    function action(a, b) {
+        if (a >= 0 && b >= 0) {
+            alert("Оба числа положительные, операция вычитания")
+            return '-';
+        } else if (a < 0 && b < 0) {
+            alert("Оба числа отрицательные, операция умножения")
+            return '*'
+        } else if (a * b <= 0) {
+            alert("Числа отличные по знаку, операция сложения")
+            return '+';
+        }
+    }
+
+    function sum(a, b) {
+        return (a + b);
+    }
+
+    function dif(a, b) {
+        return (a - b);
+    }
+
+    function prod(a, b) {
+        return (a * b);
+    }
+
+    function mathOperation(a, b, act) {
+        switch (act) {
+            case ('+'):
+                return sum(a, b);
+                break;
+            case ('-'):
+                return dif(a, b);
+                break;
+            case ('*'):
+                return prod(a, b);
+                break;
+        }
+    }
+
+    alert(mathOperation(a, b, action(a, b)));
+</script>
