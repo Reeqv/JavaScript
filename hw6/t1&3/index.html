@@ -1,0 +1,62 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>hw6-1</title>
+    <script defer>
+        var folder = ["small\\", "big\\"];
+        function prev() {
+            c--;
+            if (c < 0) {
+                c = mas.length - 1;
+            }
+            changeImg(0);
+        }
+        function next() {
+            c++;
+            if (c > mas.length - 1) {
+                c = 0;
+            }
+            changeImg(0);
+        }
+        function openBig() {
+            changeImg(1);
+            img.onclick = closeBig;
+        }
+        function closeBig() {
+            changeImg(0);
+            img.onclick = openBig;
+        }
+        function changeImg(f){
+            img.src = folder[f] + mas[c] + ".jpg";
+            img.onerror = errorAlert;
+        }
+        function errorAlert(){
+            alert("Image not found");
+            img.src = "big\\error.jpg"
+        }
+    </script>
+
+    </script>
+</head>
+
+<body>
+    <div style = "display: flex; align-items: center; justify-content: space-between; margin: auto; width: 1000px; height: 1000px;"> 
+        <button onclick="prev()">⇦</button>
+        <button onclick="next()">⇨</button>
+    </div>
+
+    <script>
+        var mas = ["p0", "p1", "p2"],
+            c = 0;
+        var img = document.createElement("img");
+        img.src = "small\\" +mas[c] + ".jpg";
+        img.onclick = openBig;
+        document.querySelector("button").insertAdjacentElement("afterend", img);
+    </script>
+</body>
+
+</html>
