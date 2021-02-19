@@ -1,0 +1,139 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Shop Cart</title>
+    <script>
+        var goodsTab, nameString, img, price, q, buyButton, buyBox, i = 0,
+            k = 0,
+            cart = [],
+            c, numb, cartItem, position = 1, sum;
+
+        function addToCart() {
+            numb = parseInt(document.getElementsByTagName("input")[this.class].value);
+            if (cart.length != 0) {
+                c = cart.length;
+                check = 0;
+                for (var items = 0; items < c; items++) {
+                    if (products[this.class][0] == cart[items][0]) {
+                        cart[items][3] += numb;
+                        check = 1;
+                        break;
+                    }
+                }
+                if (check == 0) {
+                    cart.push([products[this.class][0], products[this.class][1], products[this.class][2], numb]);
+
+                }
+            } else {
+                cart.push([products[this.class][0], products[this.class][1], products[this.class][2], numb]);
+            }
+            console.log(cart);
+            displayCart();
+        }
+
+        function displayCart() {
+            document.getElementsByClassName("shopCart")[0].innerHTML = "";
+            sum = 0;
+            for(var items = 0; items < cart.length; items ++){
+                cartItem = document.createElement("p");
+                cartItem.textContent = cart[items][1] + " (цена за штуку :" + cart[items][2]  + "руб.) x " + cart[items][3];
+                document.getElementsByClassName("shopCart")[0].insertAdjacentElement("beforeend", cartItem);
+                sum += cart[items][2] * cart[items][3];
+            }
+            if(cart.length > 0){
+                cartItem = document.createElement("p");
+                cartItem.innerHTML = "------------------------------";
+                document.getElementsByClassName("shopCart")[0].insertAdjacentElement("beforeend", cartItem);
+                cartItem = document.createElement("p");
+                cartItem.innerHTML = "Итого: " + sum + "руб.";
+                document.getElementsByClassName("shopCart")[0].insertAdjacentElement("beforeend", cartItem);
+            }
+        }
+
+        function addProduct() {
+            goodsTab = document.createElement("div");
+            goodsTab.style.textAlign = "center";
+            goodsTab.style.display = "flex";
+            goodsTab.style.flexDirection = "column";
+            goodsTab.style.border = "1px solid black";
+
+            nameString = document.createElement("h2");
+            nameString.textContent = products[i][1];
+
+            img = document.createElement("img");
+            img.src = "g" + products[i][0] + ".jpg";
+
+            buy = document.createElement("div");
+            buy.style.display = "flex";
+
+            price = document.createElement("p");
+            price.textContent = "Цена: " + products[i][2] + "руб.";
+
+            buyBox = document.createElement("div");
+            buyBox.style.display = "flex";
+            buyBox.style.flexDirection = "row";
+            buyBox.style.justifyContent = "flex-end";
+            buyBox.class = products[i][0];
+
+            q = document.createElement("input");
+            q.value = "1";
+            q.type = "number";
+            q.min = "1";
+            q.max = "100";
+            q.class = products[i][0];
+
+            buyButton = document.createElement("button");
+            buyButton.onclick = addToCart;
+            buyButton.textContent = "Купить";
+            buyButton.class = products[i][0];
+
+            goodsTab.append(nameString);
+            goodsTab.append(img);
+            goodsTab.append(price);
+            goodsTab.append(buyBox);
+            buyBox.append(q);
+            buyBox.append(buyButton);
+            document.getElementsByClassName("goods")[0].insertAdjacentElement("beforeend", goodsTab);
+
+        }
+    </script>
+</head>
+
+<body>
+    <div class="shopCart"
+        style="width: 1160px; height: 500px; padding: 0 20px 0 20px; background-color:cornsilk; margin: 0 auto"></div>
+    <div class="goods"
+        style="width: 1160px; height: 500px; padding: 0 20px 0 20px; background-color: burlywood; margin: 0 auto; display: flex; align-items: center; justify-content: space-between;">
+    </div>
+
+    <!-- <div class = "test" style = "width: 1160px; height: 500px; padding: 0 20px 0 20px; background-color:cornsilk; margin: 0 auto; display: grid; grid-template-columns: 1fr 2fr 3fr;">
+        <div style = "background-color: red;"></div>
+        <div style = "background-color: green;"></div>
+        <div style = "background-color: blue;"></div>
+    </div> -->
+
+
+    <script>
+        //название, картинка, цена
+        var products = [
+            [
+                0, "Мяч", 100
+            ],
+            [
+                1, "Теннисная ракетка", 300
+            ],
+            [
+                2, "Кросовки", 500
+            ]
+        ];
+        for (i = 0; i < products.length; i++) {
+            addProduct(i);
+        }
+    </script>
+</body>
+
+</html>
